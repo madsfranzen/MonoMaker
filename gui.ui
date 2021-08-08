@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>2000000</width>
+    <height>2000000</height>
+   </size>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::NoFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>MonoMaker by MMMIX</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>40</y>
+      <width>340</width>
+      <height>480</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+font: 13pt &quot;Andale Mono&quot;;
+</string>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <column>
+     <property name="text">
+      <string>Filename</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Size</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget2">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>40</y>
+      <width>300</width>
+      <height>480</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 13pt &quot;Andale Mono&quot;;</string>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <column>
+     <property name="text">
+      <string>Check</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="convert">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>530</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="statusTip">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 13pt &quot;Andale Mono&quot;;
+</string>
+    </property>
+    <property name="text">
+     <string>Convert</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>600</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:darkslategrey;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="browse">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>530</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 13pt &quot;Andale Mono&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Browse</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView_2">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>0</y>
+      <width>811</width>
+      <height>601</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:darkslategrey;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="output">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>530</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 13pt &quot;Andale Mono&quot;;
+text-align:right;</string>
+    </property>
+    <property name="text">
+     <string>Select Output Folder </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>540</y>
+      <width>531</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 18pt &quot;Andale Mono&quot;;
+text-align:center;</string>
+    </property>
+    <property name="text">
+     <string>Thank you for using MonoMaker by MMMIX</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="check">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>80</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Check before converting</string>
+    </property>
+   </widget>
+   <zorder>graphicsView</zorder>
+   <zorder>label_2</zorder>
+   <zorder>graphicsView_2</zorder>
+   <zorder>tableWidget</zorder>
+   <zorder>tableWidget2</zorder>
+   <zorder>convert</zorder>
+   <zorder>browse</zorder>
+   <zorder>output</zorder>
+   <zorder>check</zorder>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>convert</sender>
+   <signal>clicked()</signal>
+   <receiver>graphicsView_2</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>535</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>convert</sender>
+   <signal>clicked()</signal>
+   <receiver>browse</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>535</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>215</x>
+     <y>535</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>convert</sender>
+   <signal>clicked()</signal>
+   <receiver>check</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>635</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>645</x>
+     <y>25</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>convert</sender>
+   <signal>clicked()</signal>
+   <receiver>convert</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>635</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>635</x>
+     <y>545</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>convert</sender>
+   <signal>clicked()</signal>
+   <receiver>output</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>635</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>545</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>check</sender>
+   <signal>clicked()</signal>
+   <receiver>check</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>635</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>635</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
