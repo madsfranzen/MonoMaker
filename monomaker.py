@@ -1,3 +1,19 @@
+# MonoMaker by MMMIX - 2021
+
+
+# TODO Få højre table liste til at vise, hvilke filer er blevet konverterede.
+# TODO Total files for processing, Files converted (x of x)
+# TODO File size after conversion
+
+# TODO UI :
+# TODO      Thanks for using - text
+# TODO      Knapper skal hide/show dynamisk
+# TODO      Pænere UI
+# TODO      Window Title
+
+# ? Eventuel gainjustering, for at kompensere for tab af volume? * LAV TEST *
+
+
 import os
 import sys
 import shutil
@@ -114,21 +130,19 @@ class Ui(QtWidgets.QMainWindow):
                 )
             row = row + 1
 
-    #! KONVERTERING SKER HER - COMMENT SKAL OPDATERES
+    # Konvertering sker her
     def convertfiles(self):
 
         loopCount = 0
         counter = 0
 
+        # Filerne læses
         for x in filenames:
-
             rate, data = wavfile.read(x)
-
             faudio = AudioSegment.from_file(filenames[loopCount])
 
+            # Hvis filen allerede er mono, kopieres den til output-folder
             if faudio.channels <= 1:
-                print("MONO")
-
                 shutil.copy2(
                     (str(filenames[loopCount])),
                     (str(outputFolder) + "/" + str(filenamesShort[loopCount])),
@@ -136,23 +150,21 @@ class Ui(QtWidgets.QMainWindow):
                 loopCount = loopCount + 1
                 continue
 
+            # Tjek hvor mange samples der er forskellige mellem de to channels.
             length = len(data[:, 0])
-
             for i in range(length):
                 if data[i, 0] != data[i, 1]:
                     counter = counter + 1
 
+            # Hvis de to channels har mere end X % til fælles, anses filen som mono og skal derfor konverteres.
+            # TODO Denne procentsats kan og bør justeres.
             equalSamples = length - counter
             equalSamplesPercent = equalSamples / length * 100
-
-            # ? Her sker sorteringen af filerne efter fastsat procentsats.
-            # ? Denne kan og bør justeres senere.
-
             if equalSamplesPercent > 95:
 
+                # Venstre side af filen skrives til output-folder.
                 left = data[:, 0]
                 # right = data[:, 1]
-
                 wavio.write(
                     str(outputFolder) + "/" + str(filenamesShort[loopCount]),
                     left,
@@ -163,17 +175,14 @@ class Ui(QtWidgets.QMainWindow):
                 loopCount = loopCount + 1
 
             else:
-
-                # Kopier original stereofil til output-folder
-
+                # Hvis filerne har mindre end X % samples til fælles,
+                # kopieres den originale stereofil til output-folder, da den anses for at være "true" stereo
                 shutil.copy2(
                     (str(filenames[loopCount])),
                     (str(outputFolder) + "/" + str(filenamesShort[loopCount])),
                 )
 
                 loopCount = loopCount + 1
-
-            # TODO Få den højre liste til at vise, hvilke filer er blevet konverterede.
 
     # Vælg output-folder
     def selectOutputFolder(self):
@@ -185,9 +194,6 @@ class Ui(QtWidgets.QMainWindow):
         global outputFolder
         outputFolder = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Folder")
         self.output.setText(outputFolder)
-
-
-# ? Eventuelt med gainjustering, for at kompensere for tab af volume?
 
 
 # System
