@@ -194,7 +194,7 @@ font: 13pt &quot;Andale Mono&quot;;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:darkslategrey;</string>
+     <string notr="true">background-color:#335c67;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="output">
@@ -256,102 +256,5 @@ text-align:center;</string>
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>convert</sender>
-   <signal>clicked()</signal>
-   <receiver>graphicsView_2</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>595</x>
-     <y>535</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>395</x>
-     <y>300</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>convert</sender>
-   <signal>clicked()</signal>
-   <receiver>browse</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>595</x>
-     <y>535</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>215</x>
-     <y>535</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>convert</sender>
-   <signal>clicked()</signal>
-   <receiver>check</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>635</x>
-     <y>545</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>645</x>
-     <y>25</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>convert</sender>
-   <signal>clicked()</signal>
-   <receiver>convert</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>635</x>
-     <y>545</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>635</x>
-     <y>545</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>convert</sender>
-   <signal>clicked()</signal>
-   <receiver>output</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>635</x>
-     <y>545</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>405</x>
-     <y>545</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>check</sender>
-   <signal>clicked()</signal>
-   <receiver>check</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>635</x>
-     <y>100</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>635</x>
-     <y>100</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

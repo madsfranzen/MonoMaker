@@ -1,25 +1,46 @@
-from PyQt5 import QtWidgets, uic
-from pydub import AudioSegment
-from scipy.io import wavfile
+import os
 import sys
 import shutil
 import numpy as np
 import wavio
+from PyQt5 import QtWidgets, uic
+from pydub import AudioSegment
+from scipy.io import wavfile
 
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
-       	super(Ui, self).__init__()
+        super(Ui, self).__init__()
 
         uic.loadUi("gui.ui", self)
 
         self.browse.clicked.connect(self.browsefiles)
-        self.tableWidget.setColumnWidth(0, 250)
-        self.tableWidget.setColumnWidth(1, 80)
+        self.tableWidget.setColumnWidth(0, 220)
+        self.tableWidget.setColumnWidth(1, 75)
         self.tableWidget2.setColumnWidth(0, 300)
-        self.convert.clicked.connect(self.convertfiles)
+        self.convert.clicked.connect(self.checkReady_convertfiles)
         self.output.clicked.connect(self.selectOutputFolder)
-        self.check.clicked.connect(self.checkBefore)
+        self.check.clicked.connect(self.checkReady_checkbefore)
+
+        # De to "ready"-check variabler
+        global checkBrowse
+        checkBrowse = 0
+        global checkOutput
+        checkOutput = 0
+
+    # "ready"-check inden convertfiles. Kræver både output-folder og browse.
+    def checkReady_convertfiles(self):
+        if checkBrowse == 1 and checkOutput == 1:
+            self.convertfiles()
+        else:
+            pass
+
+    # "ready"-check inden checkbefore. Kræver kun browse.
+    def checkReady_checkbefore(self):
+        if checkBrowse == 1:
+            self.checkbefore()
+        else:
+            pass
 
     # Omskriver filstørrelser til læselige formater.
     def humansize(self, nbytes):
@@ -37,35 +58,46 @@ class Ui(QtWidgets.QMainWindow):
     # Vælg filer til konvertering og hent navn, sti og filstørrelse
     def browsefiles(self):
 
+        # Aktivér "ready"-check for browse
+        global checkBrowse
+        checkBrowse = 1
+
+        # Declare variabler så de andre funktioner kan hente filnavne
         global filenames
         global filenamesShort
+
+        # Selve browse-funktionen
         dialog = QtWidgets.QFileDialog()
         dialog.setFileMode(QtWidgets.QFileDialog.ExistingFiles)
         dialog.setNameFilters(["Wav files (*.wav)"])
 
         if dialog.exec():
-
             filenames = dialog.selectedFiles()
 
+        # Forkort filnavne så man kun får den sidste bid af stien og ikke hele stien
         filenamesShort = [i.split("/")[-1] for i in filenames]
-        # filenamesSplit = [i.split(', ') for i in filenames]
 
         row = 0
         self.tableWidget.setRowCount(len(filenames))
 
+        # counter til at increment hvilken fil der skal findes størrelse på
+        x = 0
+
         for i in filenamesShort:
+            # indsæt forkortet filnavn i listen
             self.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(i))
 
-            #! Få styr på hvorfor program crasher, når der behandles mere end én fil af gangen.
-            #! Det er stien der er problemet.
+            # find filstørrelse og indsæt i listen
+            size = os.path.getsize(str(filenames[x]))
+            size = self.humansize(size)
+            self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(str(size)))
 
-            #   size = os.path.getsize(str(filenamesSplit)[3:-3])
-            #   size = self.humansize(size)
-            #   self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(str(size)))
             row = row + 1
+            x = x + 1
 
     #  Tjek om filen er mono eller stereo før konvertering.
-    def checkBefore(self):
+    # ? Funktion ligegyldig for brugeren?
+    def checkbefore(self):
         row = 0
         self.tableWidget2.setRowCount(len(filenames))
 
@@ -84,8 +116,6 @@ class Ui(QtWidgets.QMainWindow):
 
     #! KONVERTERING SKER HER - COMMENT SKAL OPDATERES
     def convertfiles(self):
-
-        # TODO Lav kontrol, der sørger for man ikke kan trykke convert før, browse og ouputfolder
 
         loopCount = 0
         counter = 0
@@ -147,6 +177,10 @@ class Ui(QtWidgets.QMainWindow):
 
     # Vælg output-folder
     def selectOutputFolder(self):
+
+        # Aktivér "ready"-check for output-folder
+        global checkOutput
+        checkOutput = 1
 
         global outputFolder
         outputFolder = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Folder")
