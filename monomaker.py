@@ -19,6 +19,7 @@ import sys
 import shutil
 import numpy as np
 import wavio
+from threading import Thread
 from PyQt5 import QtWidgets, uic
 from pydub import AudioSegment
 from scipy.io import wavfile
@@ -30,12 +31,15 @@ class Ui(QtWidgets.QMainWindow):
 
         uic.loadUi("gui.ui", self)
 
-        self.browse.clicked.connect(self.browsefiles)
         self.tableWidget.setColumnWidth(0, 280)
         self.tableWidget.setColumnWidth(1, 80)
         self.tableWidget.setColumnWidth(2, 270)
-        self.convert.clicked.connect(self.checkReady_convertfiles)
+        self.browse.clicked.connect(self.browsefiles)
         self.output.clicked.connect(self.selectOutputFolder)
+        self.convert.clicked.connect(self.checkReady_convertfiles)
+
+        self.progressBar.hide()
+        self.status.hide()
 
         # De to "ready"-check variabler
         global checkBrowse
@@ -43,9 +47,21 @@ class Ui(QtWidgets.QMainWindow):
         global checkOutput
         checkOutput = 0
 
+        global filenames
+        global loopCount
+
     # "ready"-check inden convertfiles. Kræver både output-folder og browse.
     def checkReady_convertfiles(self):
         if checkBrowse == 1 and checkOutput == 1:
+
+            # Show/hide GUI
+            self.progressBar.show()
+            self.status.show()
+            self.browse.hide()
+            self.output.hide()
+            self.convert.hide()
+
+            # Run function
             self.convertfiles()
         else:
             pass
@@ -88,28 +104,26 @@ class Ui(QtWidgets.QMainWindow):
         row = 0
         self.tableWidget.setRowCount(len(filenames))
 
-        # counter til at increment hvilken fil der skal findes størrelse på
-        x = 0
-
         for i in filenamesShort:
             # indsæt forkortet filnavn i listen
             self.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(i))
 
             # find filstørrelse og indsæt i listen
-            size = os.path.getsize(str(filenames[x]))
+            size = os.path.getsize(str(filenames[row]))
             size = self.humansize(size)
             self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(str(size)))
 
             row = row + 1
-            x = x + 1
 
     # Konvertering sker her
     def convertfiles(self):
 
+        global loopCount
         loopCount = 0
         counter = 0
         row = 0
         self.tableWidget.setRowCount(len(filenames))
+        self.progressBar.setMaximum(len(filenames) - 1)
 
         # Filerne læses
         for x in filenames:
@@ -125,6 +139,10 @@ class Ui(QtWidgets.QMainWindow):
                 self.tableWidget.setItem(
                     row, 2, QtWidgets.QTableWidgetItem("Mono - No Conversion")
                 )
+                QtWidgets.QApplication.processEvents()
+
+                self.progressBar.setValue(int(loopCount))
+
                 row = row + 1
                 loopCount = loopCount + 1
                 continue
@@ -151,11 +169,15 @@ class Ui(QtWidgets.QMainWindow):
                     sampwidth=3,
                 )
 
-                self.tableWidget1.setItem(
+                self.tableWidget.setItem(
                     row, 2, QtWidgets.QTableWidgetItem("Mono - Converted!")
                 )
-                row = row + 1
 
+                QtWidgets.QApplication.processEvents()
+
+                self.progressBar.setValue(int(loopCount))
+
+                row = row + 1
                 loopCount = loopCount + 1
 
             else:
@@ -169,9 +191,16 @@ class Ui(QtWidgets.QMainWindow):
                 self.tableWidget.setItem(
                     row, 2, QtWidgets.QTableWidgetItem("Stereo - No Conversion")
                 )
-                row = row + 1
 
+                QtWidgets.QApplication.processEvents()
+
+                self.progressBar.setValue(int(loopCount))
+
+                row = row + 1
                 loopCount = loopCount + 1
+
+        # Opdater status label
+        self.status.setText("Sucess!")
 
     # Vælg output-folder
     def selectOutputFolder(self):

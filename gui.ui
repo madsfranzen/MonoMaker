@@ -74,6 +74,9 @@
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">
 font: 13pt &quot;Andale Mono&quot;;
@@ -121,7 +124,7 @@ font: 13pt &quot;Andale Mono&quot;;
     </property>
     <property name="styleSheet">
      <string notr="true">font: 13pt &quot;Andale Mono&quot;;
-</string>
+background-color:#34495E;</string>
     </property>
     <property name="text">
      <string>Convert</string>
@@ -137,7 +140,7 @@ font: 13pt &quot;Andale Mono&quot;;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:darkslategrey;</string>
+     <string notr="true">background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.98, fx:0.5, fy:0.5, stop:0.454054 rgba(0, 53, 96, 255), stop:1 rgba(0, 0, 0, 255));</string>
     </property>
    </widget>
    <widget class="QPushButton" name="browse">
@@ -150,23 +153,11 @@ font: 13pt &quot;Andale Mono&quot;;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 13pt &quot;Andale Mono&quot;;</string>
+     <string notr="true">font: 13pt &quot;Andale Mono&quot;;
+background-color:#34495E;</string>
     </property>
     <property name="text">
      <string>Browse</string>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="graphicsView_2">
-    <property name="geometry">
-     <rect>
-      <x>-10</x>
-      <y>0</y>
-      <width>811</width>
-      <height>601</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:#335c67;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="output">
@@ -180,38 +171,57 @@ font: 13pt &quot;Andale Mono&quot;;
     </property>
     <property name="styleSheet">
      <string notr="true">font: 13pt &quot;Andale Mono&quot;;
-text-align:right;</string>
+text-align:right;
+background-color:#34495E;</string>
     </property>
     <property name="text">
-     <string>Select Output Folder </string>
+     <string>Select Output Folder   </string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QProgressBar" name="progressBar">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>280</x>
       <y>540</y>
-      <width>531</width>
+      <width>281</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 18pt &quot;Andale Mono&quot;;
-text-align:center;</string>
+     <string notr="true"/>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="status">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>550</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 15pt &quot;Andale Mono&quot;;
+</string>
     </property>
     <property name="text">
-     <string>Thank you for using MonoMaker by MMMIX</string>
+     <string>Working...</string>
     </property>
    </widget>
    <zorder>graphicsView</zorder>
-   <zorder>label_2</zorder>
-   <zorder>graphicsView_2</zorder>
    <zorder>tableWidget</zorder>
    <zorder>convert</zorder>
    <zorder>browse</zorder>
    <zorder>output</zorder>
+   <zorder>progressBar</zorder>
+   <zorder>status</zorder>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../Desktop/gui/res.qrc"/>
+ </resources>
  <connections/>
 </ui>
