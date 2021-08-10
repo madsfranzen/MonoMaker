@@ -31,12 +31,11 @@ class Ui(QtWidgets.QMainWindow):
         uic.loadUi("gui.ui", self)
 
         self.browse.clicked.connect(self.browsefiles)
-        self.tableWidget.setColumnWidth(0, 220)
-        self.tableWidget.setColumnWidth(1, 75)
-        self.tableWidget2.setColumnWidth(0, 300)
+        self.tableWidget.setColumnWidth(0, 280)
+        self.tableWidget.setColumnWidth(1, 80)
+        self.tableWidget.setColumnWidth(2, 270)
         self.convert.clicked.connect(self.checkReady_convertfiles)
         self.output.clicked.connect(self.selectOutputFolder)
-        self.check.clicked.connect(self.checkReady_checkbefore)
 
         # De to "ready"-check variabler
         global checkBrowse
@@ -48,13 +47,6 @@ class Ui(QtWidgets.QMainWindow):
     def checkReady_convertfiles(self):
         if checkBrowse == 1 and checkOutput == 1:
             self.convertfiles()
-        else:
-            pass
-
-    # "ready"-check inden checkbefore. Kræver kun browse.
-    def checkReady_checkbefore(self):
-        if checkBrowse == 1:
-            self.checkbefore()
         else:
             pass
 
@@ -111,30 +103,13 @@ class Ui(QtWidgets.QMainWindow):
             row = row + 1
             x = x + 1
 
-    #  Tjek om filen er mono eller stereo før konvertering.
-    # ? Funktion ligegyldig for brugeren?
-    def checkbefore(self):
-        row = 0
-        self.tableWidget2.setRowCount(len(filenames))
-
-        for i in range(len(filenames)):
-            faudio = AudioSegment.from_file(filenames[i])
-
-            if faudio.channels > 1:
-                self.tableWidget2.setItem(
-                    row, 0, QtWidgets.QTableWidgetItem("File seems Stereo")
-                )
-            else:
-                self.tableWidget2.setItem(
-                    row, 0, QtWidgets.QTableWidgetItem("Mono (No conversion")
-                )
-            row = row + 1
-
     # Konvertering sker her
     def convertfiles(self):
 
         loopCount = 0
         counter = 0
+        row = 0
+        self.tableWidget.setRowCount(len(filenames))
 
         # Filerne læses
         for x in filenames:
@@ -147,6 +122,10 @@ class Ui(QtWidgets.QMainWindow):
                     (str(filenames[loopCount])),
                     (str(outputFolder) + "/" + str(filenamesShort[loopCount])),
                 )
+                self.tableWidget.setItem(
+                    row, 2, QtWidgets.QTableWidgetItem("Mono - No Conversion")
+                )
+                row = row + 1
                 loopCount = loopCount + 1
                 continue
 
@@ -172,6 +151,11 @@ class Ui(QtWidgets.QMainWindow):
                     sampwidth=3,
                 )
 
+                self.tableWidget1.setItem(
+                    row, 2, QtWidgets.QTableWidgetItem("Mono - Converted!")
+                )
+                row = row + 1
+
                 loopCount = loopCount + 1
 
             else:
@@ -181,6 +165,11 @@ class Ui(QtWidgets.QMainWindow):
                     (str(filenames[loopCount])),
                     (str(outputFolder) + "/" + str(filenamesShort[loopCount])),
                 )
+
+                self.tableWidget.setItem(
+                    row, 2, QtWidgets.QTableWidgetItem("Stereo - No Conversion")
+                )
+                row = row + 1
 
                 loopCount = loopCount + 1
 
